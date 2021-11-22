@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Homework</title>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Необходимо скопировать и вставить в данный скрипт все функции из 4 задания.
+Необходимо реализовать функцию:
+mathOperation(arg1, arg2, operation);
+Параметры:
+arg1 - первое число.
+arg2 - второе число.
+operation - строка, которая содержит один символ из: "+", "-", "*", "/".
+Функция mathOperation должна вернуть результат операции, который был передан в
+параметр operation для двух первых аргументов (arg1 и arg2).
+Функция mathOperation должна использовать для вычисления функции из 4 задания.
+
+Примеры вызова функции:
+console.log(mathOperation(5, 3, "+")); // 8
+console.log(mathOperation(5, 3, ":)")); // NaN
+
+Функции mathOperation всегда передаются корректные числа, проверки на NaN,
+Infinity делать не нужно, однако, в случае если был передан некорректный
+аргумент в параметр operation, необходимо вернуть NaN.
+
+Необходимо для всех функций прописать комментарии jsdoc https://jsdoc.app/.
+-->
+  <script>
+    "use strict";
+
+    /**
+     * Функция суммирования.
+     * @param {number} a - 1е слагаемое
+     * @param {number} b - 2е слагаемое
+     * @return {number} - сумма чисел
+    */
+    function getSum(a, b) {
+      return a + b;
+    }
+
+    /**
+     * Функция вычитания.
+     * @param {number} a - 1й операнд
+     * @param {number} b - 2й операнд
+     * @return {number} - разность чисел по модулю (из большего меньшее)
+    */
+    function getDiff(a, b) {
+      if (a > b) {
+        return a - b;
+      }
+      else {
+        return b - a;
+      }
+    }
+
+    /**
+     * Функция умножения.
+     * @param {number} a - 1й множитель
+     * @param {number} b - 2й множитель
+     * @return {number} - произведение чисел
+    */
+    function getMul(a, b) {
+      return a * b;
+    }
+
+    /**
+     * Функция деления. Вернет ошибку в случае попытки деления на 0.
+     * @param {number} a - делимое
+     * @param {number} b - делитель
+     * @return {number} - частное
+    */
+    function getDiv(a, b) {
+      if (b) {
+        return a / b;
+      }
+      else {
+        return 'Error. Division by zero';
+      }
+    }
+
+    /**
+     * функция "калькулятор". Выполняет между двумя аргументами (a, b) действие,
+     * обозначенное знаком в третьем аргументе (sign).
+     * @param {number} a - аргумент №1
+     * @param {number} b - аргумент №2
+     * @param {string} sign - знак операции (+, -, *, /)
+     * @return {number} - результат соответствующего вычисления или сообщение
+     * об ошибке
+    */
+    function mathOperation(a, b, sign) {
+      switch (sign) {
+        case '+':
+          return getSum(a, b);
+        case '-':
+          return getDiff(a, b);
+        case '*':
+          return getMul(a, b);
+        case '/':
+          return getDiv(a, b);
+        default:
+          return "Не верный знак операции (+, -, *, /)"
+      }
+    }
+    console.log(mathOperation(4, 5, '*'));
+  </script>
+</body>
+
+</html>
