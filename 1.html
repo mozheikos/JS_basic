@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+
+        function createObjectOfNumber(number) {
+            let number_ = +number //сохраняю исходное число, для вывода
+            if (number !== null && number >= 0 && number <= 999 && Number.isInteger(number_)) {
+                console.log(`Передано число: ${number}`);
+                return {
+                    units: number_ % 10,
+                    tens: Math.trunc(number_ / 10) % 10,
+                    hundreds: Math.trunc(number_ / 100)
+                }
+            }
+            console.log(`Передано не верное число: ${number}`);
+            return {};
+        };
+
+        console.log(createObjectOfNumber("asd")); //number_ = NaN, ошибка
+        console.log(createObjectOfNumber("7.35")); //не целое число
+        console.log(createObjectOfNumber(7.35)); //не целое число
+        console.log(createObjectOfNumber("735")); //все верно, работаем
+        console.log(createObjectOfNumber(735)); //все верно, работаем
+        console.log(createObjectOfNumber(Infinity)); //не входит в диапазон
+        console.log(createObjectOfNumber(null)); //null (не 0) не считаем числом
+    </script>
+</body>
+
+</html>

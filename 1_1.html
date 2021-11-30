@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+
+        //ES5
+        function Product(name, price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        Product.prototype.make25PercentDiscount = function () {
+            this.price *= 0.75;
+        }
+
+        let productA = new Product('Subaru', 1250000);
+        console.log(productA); // выводит в консоль сразу объект с модификацией,
+        // но если нажать F5 - все тановится правильно. В общем отладчик...
+        // на всякий случай - текстовое представление, там правильно
+        console.log(`${productA.name} - ${productA.price}`);
+        productA.make25PercentDiscount();
+        console.log(productA);
+        console.log(`${productA.name} - ${productA.price}`);
+
+        //ES6
+        class ProductES6 {
+
+            constructor(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            make25PercentDiscountES6() {
+                this.price *= 0.75;
+            }
+
+        }
+
+        let productB = new ProductES6('Subaru', 1250000);
+        console.log(productB);
+        console.log(`${productB.name} - ${productB.price}`);
+        productB.make25PercentDiscountES6();
+        console.log(productB);
+        console.log(`${productB.name} - ${productB.price}`);
+    </script>
+</body>
+
+</html>
