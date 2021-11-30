@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        'use strict';
+
+        //ES5
+        // Конструктор Post 
+        function Post(author, text, date) {
+            this.author = author;
+            this.text = text;
+            this.date = date;
+        }
+
+        // Метод edit для объекта Post
+        Post.prototype.edit = function (text) {
+            this.text = text;
+        }
+
+        // Конструктор AttachedPost
+        function AttachedPost(author, text, date) {
+            Post.call(this, author, text, date);
+            this.highlighted = false;
+        }
+
+        // Наследование от Post
+        AttachedPost.prototype = Object.create(Post.prototype);
+        AttachedPost.prototype.constructor = AttachedPost;
+
+        //метод makeTextHighlighted
+        AttachedPost.prototype.makeTextHighlighted = function () {
+            this.highlighted = true;
+        }
+
+        let post = new Post('Swift', 'book text', '20.11.2000');
+        console.log(post);
+        post.edit('new text');
+        console.log(post);
+
+        let aPost = new AttachedPost('Kipling', 'some text', '10.12.1900');
+        console.log(aPost);
+        aPost.edit('some else text');
+        aPost.makeTextHighlighted();
+        console.log(aPost);
+
+        //ES6
+        class PostES6 {
+            constructor(author, text, date) {
+                this.author = author;
+                this.text = text;
+                this.date = date;
+            }
+
+            edit(text) {
+                this.text = text;
+            }
+        }
+
+        class AttachedPostES6 extends PostES6 {
+            constructor(author, text, date) {
+                super(author, text, date);
+                this.highlighted = false;
+            }
+
+            makeTextHighlighted() {
+                this.highlighted = true;
+            }
+        }
+
+        let postES6 = new PostES6('Чехов', 'Вишневый Сад', '20.11.2000');
+        console.log(postES6);
+        postES6.edit('Дядя Ваня');
+        console.log(postES6);
+
+        let aPostES6 = new AttachedPostES6('Толстой', 'Война и Мир', '10.12.1900');
+        console.log(aPostES6);
+        aPostES6.edit('Война и Мир том 2');
+        aPostES6.makeTextHighlighted();
+        console.log(aPostES6);
+
+    </script>
+</body>
+
+</html>
