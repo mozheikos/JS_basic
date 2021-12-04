@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+  <style>
+    i {
+      font-size: 50px;
+    }
+
+    .golden {
+      color: gold;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+Обязательное задание.
+
+Выполнить все задачи в теге script. Комментарии, в которых написаны задачи, не
+стирать, код с решением задачи пишем под комментарием.
+-->
+
+  <div class="stars_container">
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+    <i class="fas fa-star"></i>
+  </div>
+
+  <script>
+    "use strict";
+
+    /*
+    1. При наведении на любую из звезд, данной звезде должен ставиться класс
+    golden, также такой класс должен ставиться всем звездам до нее слева.
+    */
+
+    // Получаем родителя, на него будем вешать листенер
+    const stars = document.querySelector('.stars_container');
+    /* Для задачи 3: убираем промежутки между элементами, они в виде "\n   " */
+    let _ = '';
+    for (let i = 0; i < stars.children.length; i++) {
+      _ += stars.children[i].outerHTML.toString();
+    };
+    stars.innerHTML = _;
+    /*для того, чтобы сохранить расположение звезд, пустые промежутки, которые 
+    убрали выше (они были равны 4px), нужно восполнить, не создавая промежутков.
+    Используем padding = 2px. Теперь при движении по звездам мышь не попадает
+    в пустое место и моргания не происходит*/
+    for (const item of stars.children) {
+      item.style.padding = '2px';
+    }
+    /*Функция-обработчик. Сначала сделал, потом прочитал задание 2, потому сразу
+    получилось в одной функции (смежные события и одни и те же таргеты, считаю
+    так лучше, чем отдельные функции. Вынес отдельно, так как она довольно объ-
+    емная, так проще читать*/
+    function setStarGold(event) {
+      switch (event.type) {
+        case 'mouseover': {
+          if (event.target.tagName === 'I') {
+            for (const item of event.target.parentElement.children) {
+              if (item.offsetLeft <= event.target.offsetLeft) {
+                item.classList.add('golden');
+              }
+            }
+          }
+          break;
+        }
+        case 'mouseout': {
+          for (const item of event.target.parentElement.children) {
+            item.classList.remove('golden');
+          }
+          break;
+        }
+      }
+    }
+    stars.addEventListener('mouseover', setStarGold);
+    stars.addEventListener('mouseout', setStarGold);
+    /*
+    2. Когда мы уводим курсор мыши от звезды, все поставленные классы из первого
+    задания должны быть удалены.
+     */
+
+    /* Сначала сделал задание 1, потом подумал что некрасиво что звезды не гаснут,
+    гасли, а потом прочитал задание 2 и 3. разбивать не стал, доделал там.*/
+
+    /*
+    3. Когда мы переводим мышь от одной звезды к другой, у нас могут мигать
+    звезды (временно могут становиться черными). Почему так? Напишите словами.
+    Можем ли мы это исправить? Если да, то предложите решение.
+    */
+    /*Моргание происходит потому что в какой то момент мышь попадает в промежуток
+    между элементами (если вывести DIV в консоль - видно, что между звезлами есть
+    ноды "text", без содержимого но размером 4 пикселя. В момент прохождения там
+    мыши звезды моргают.
+    Чтобы убрать....можно ковыряться с setTimeout, но у меня подобрать оптимальные
+    задержки не получилось. Решил это сделать при помощи разметки (в коде пояснил
+    как)*/
+  </script>
+</body>
+
+</html>
